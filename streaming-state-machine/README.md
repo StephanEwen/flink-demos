@@ -22,17 +22,17 @@ NOTE: The source may be Kafka, but to make this example self-contained, it comes
 a data generator source that produces a sample event stream (with occasional anomalies)
 and that can be used without the need to have a Kafka installation.
 
-<pre>
+```
  [ KAFKA-PART-1] --> source --> partition -+---> flatMap(state machine) --> sink
                                             \/
                                             /\
  [ KAFKA-PART-2] --> source --> partition -+---> flatMap(state machine) --> sink
-</pre>
+```
 
 
 The following diagram depicts the state machine used in this example.
 
-<pre>
+```
            +--<a>--> W --<b>--> Y --<e>---+
            |                    ^         |     +-----<g>---> TERM
    INITIAL-+                    |         |     |
@@ -40,7 +40,7 @@ The following diagram depicts the state machine used in this example.
            +--<c>--> X --<b>----+         |     ^        |
                      |                    |     |        |
                      +--------<d>---------+     +--------+
-</pre>
+```
 
 
 Feedback for this example can be sent to mailto:sewen@apache.org
