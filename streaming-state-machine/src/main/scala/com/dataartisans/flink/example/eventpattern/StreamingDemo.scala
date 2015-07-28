@@ -59,18 +59,23 @@ object StreamingDemo {
 //                                                                new ConsumerConfig(props)))
 
     stream
-      // partition on the address to make sure equal addresses
-      // end up in the same state machine flatMap function
-      .partitionByHash("sourceAddress")
-      
+      // we use keyBy to keep a state by sourceAddress
+      .keyBy("sourceAddress")
+
       // the function that evaluates the state machine over the sequence of events
-      .flatMap(new StateMachineMapper())
+      .flatMapWithState((t, state: Option[State]) => transitionWithAlert(state.getOrElse(InitialState), t))
       
       // output to standard-out
       .print()
     
     // trigger program execution
     env.execute()
+  }
+  
+  val transitionWithAlert : (State, Event) => (List[Alert], Option[State]) = (currState, t) => {
+    val nextState = currState.transition(t.event)
+    if (nextState == InvalidTransition) (List(Alert(t.sourceAddress, currState, t.event)), None) else 
+      if (!nextState.terminal) (List(), Some(nextState)) else (List(), None)
   }
 }
 
