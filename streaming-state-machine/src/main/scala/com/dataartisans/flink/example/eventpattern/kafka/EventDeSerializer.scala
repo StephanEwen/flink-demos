@@ -27,7 +27,7 @@ import org.apache.flink.streaming.util.serialization.{DeserializationSchema, Ser
  * A serializer / Deserializer for converting [[Event]] objects from/to byte sequences
  * for Kafka.
  */
-class EventDeSerializer extends DeserializationSchema[Event] with SerializationSchema[Event, Array[Byte]] {
+class EventDeSerializer extends DeserializationSchema[Event] with SerializationSchema[Event] {
   
   override def deserialize(bytes: Array[Byte]): Event = {
     val buffer = ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN)

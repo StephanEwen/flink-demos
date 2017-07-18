@@ -28,15 +28,15 @@ import org.apache.flink.util.Collector
  */
 object KafkaGenerator extends StandaloneGeneratorBase {
 
-  val TOPIC = "flink-demo-topic"
+  val TOPIC = "flink-demo-topic-1"
 
   def main(args: Array[String]): Unit = {
 
-    val numPartitions = 4 //args(0).toInt
+    val numPartitions = 1
     val collectors = new Array[KafkaCollector](numPartitions)
 
     // create the generator threads
-    for (i <- 0 until collectors.length) {
+    for (i <- collectors.indices) {
       collectors(i) = new KafkaCollector(i)
     }
 

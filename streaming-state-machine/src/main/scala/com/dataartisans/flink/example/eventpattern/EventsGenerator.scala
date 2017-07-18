@@ -32,7 +32,7 @@ import java.util.Random
 class EventsGenerator {
   
   /** Probability with this generator generates an illegal state transition */
-  private[this] val errorProb: Double = 0.0000001
+  private[this] val errorProb: Double = 0.0000000
 
   /** The random number generator */
   private[this] val rnd = new Random()

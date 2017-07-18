@@ -30,7 +30,7 @@ abstract class StandaloneGeneratorBase {
     val range = Integer.MAX_VALUE / collectors.length
     
     // create the generator threads
-    for (i <- 0 until threads.length) {
+    for (i <- threads.indices) {
 
       val min = range * i
       val max = min + range
@@ -47,8 +47,8 @@ abstract class StandaloneGeneratorBase {
     threads.foreach( _.setDelay(delay) )
     threads.foreach( _.start() )
     
-    val throughputLogger = new ThroughputLogger(threads)
-    throughputLogger.start()
+//    val throughputLogger = new ThroughputLogger(threads)
+//    throughputLogger.start()
     
     println("Commands:")
     println(" -> q : Quit")
@@ -86,7 +86,7 @@ abstract class StandaloneGeneratorBase {
     }
     
     // shutdown
-    throughputLogger.shutdown()
+//    throughputLogger.shutdown()
     threads.foreach( _.shutdown() )
     threads.foreach( _.join() )
   }  
